@@ -3,19 +3,18 @@ from flask_sqlalchemy import SQLAlchemy
 
 db=SQLAlchemy()
 
-class pregunta(db.Model):
+class Pregunta(db.Model):
     __tablename__ = 'preguntas'
 
     id = db.Column(db.Integer,primary_key=True)
     materia = db.Column(db.String(50), nullable=False)
     consigna = db.Column(db.String(400), nullable=False)
 
-@classmethod
-def create(cls, materia,consigna):
+    def create(cls, materia,consigna):
         pregunta = pregunta(materia=materia,consigna=consigna)
         return pregunta.save()
 
-def save(self):
+    def save(self):
         try:
                 db.session.add(self)
                 db.session.commit()
@@ -24,10 +23,10 @@ def save(self):
         except:
                 return False
 
-def update(self):
+    def update(self):
         self.save()
 
-def json(self):
+    def json(self):
         return {
             'id': self.id,
             'materia': self.materia,

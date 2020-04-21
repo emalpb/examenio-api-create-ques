@@ -1,7 +1,7 @@
 from flask import Flask,request,jsonify
 from config import config
 from models import db
-from models import pregunta
+from models import Pregunta
 
 def create_app(enviroment):
     app = Flask(__name__)
@@ -23,7 +23,7 @@ def home():
  
 @app.route('/preguntas', methods=['GET'])
 def get_ques():
-    preguntas= [pregunta.json() for i in pregunta.query.all()]
+    preguntas= [Pregunta.json() for i in Pregunta.query.all()]
     return jsonify({'preguntas': preguntas})
 
 @app.route('/preguntas/<id>', methods=['GET'])
@@ -33,15 +33,11 @@ def get_ques_id(id):
 
 @app.route('/preguntas', methods=['POST'])
 def create_ques():
-    json = request.get_json(force=True)
-
-    if json.get('materia') is None:
-        return jsonify({'message' : 'materia vacia'}),400
-
-    if json.get('consigna') is None:
-        return jsonify({'message' : 'consigna vacia'}),400
-
-    ques = pregunta.create(json['materia'],json['consigna'])
+    materia = request.json['materia']
+    consigna = request.json['consigna']
+    ques = Pregunta(materia=materia,consigna=consigna)
+    db.session.add(ques)
+    db.session.commit()
     return jsonify({'pregunta':ques.json()})    
 
 @app.route('/preguntas/<id>', methods=['PUT'])
@@ -55,4 +51,4 @@ def delete_ques(id):
     return jsonify(response)
 
 if __name__ == '__main__':
-    app.run(debug=True)    
+    app.run(debug=True,host='0.0.0.0',port=8080)    
