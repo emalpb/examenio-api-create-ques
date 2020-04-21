@@ -16,13 +16,18 @@ def create_app(enviroment):
 enviroment = config['development']
 app = create_app(enviroment)
 
-app.route('/preguntas', methods=['GET'])
+@app.route('/', methods=['GET'])
+def home():
+    data = "prueba"
+    return jsonify({'data': data})
+ 
+@app.route('/preguntas', methods=['GET'])
 def get_ques():
     preguntas= [pregunta.json() for i in pregunta.query.all()]
     return jsonify({'preguntas': preguntas})
 
-app.route('/preguntas/<id>', methods=['GET'])
-def get_ques(id):
+@app.route('/preguntas/<id>', methods=['GET'])
+def get_ques_id(id):
     response = {'message': 'sucess'}
     return jsonify(response)    
 
@@ -30,11 +35,14 @@ def get_ques(id):
 def create_ques():
     json = request.get_json(force=True)
 
+    if json.get('materia') is None:
+        return jsonify({'message' : 'materia vacia'}),400
+
     if json.get('consigna') is None:
         return jsonify({'message' : 'consigna vacia'}),400
 
-    pregunta = pregunta.create(json['consigna'])
-    return jsonify({'pregunta':pregunta.json()})    
+    ques = pregunta.create(json['materia'],json['consigna'])
+    return jsonify({'pregunta':ques.json()})    
 
 @app.route('/preguntas/<id>', methods=['PUT'])
 def update_ques(id):
@@ -43,7 +51,7 @@ def update_ques(id):
 
 @app.route('/preguntas/<id>', methods=['DELETE'])
 def delete_ques(id):
-    response = {'message': 'success'}
+    response = {'message': 'id'}
     return jsonify(response)
 
 if __name__ == '__main__':
