@@ -23,8 +23,10 @@ def home():
  
 @app.route('/preguntas', methods=['GET'])
 def get_ques():
-    preguntas= [Pregunta.json() for i in Pregunta.query.all()]
-    return jsonify({'preguntas': preguntas})
+    preguntas= Pregunta.query.order_by(Pregunta.id).all()
+    return jsonify({'preguntas': 
+    [{"id": x.id, "materia": x.materia, "consigna": x.consigna} for x in preguntas]
+    })
 
 @app.route('/preguntas/<id>', methods=['GET'])
 def get_ques_id(id):
@@ -33,12 +35,12 @@ def get_ques_id(id):
 
 @app.route('/preguntas', methods=['POST'])
 def create_ques():
-    materia = request.json['materia']
-    consigna = request.json['consigna']
-    ques = Pregunta(materia=materia,consigna=consigna)
-    db.session.add(ques)
-    db.session.commit()
-    return jsonify({'pregunta':ques.json()})    
+    json = request.get_json(force=True)
+
+    user = Pregunta.create(json['materia'],json['consigna'])
+
+    return jsonify({'pregunta': user.json() })
+   
 
 @app.route('/preguntas/<id>', methods=['PUT'])
 def update_ques(id):

@@ -10,8 +10,11 @@ class Pregunta(db.Model):
     materia = db.Column(db.String(50), nullable=False)
     consigna = db.Column(db.String(400), nullable=False)
 
-    def create(cls, materia,consigna):
-        pregunta = pregunta(materia=materia,consigna=consigna)
+
+    @classmethod
+    
+    def create(self, materia,consigna):
+        pregunta = Pregunta(materia=materia,consigna=consigna)
         return pregunta.save()
 
     def save(self):
