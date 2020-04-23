@@ -3,3 +3,4 @@ psycopg2-binary
 Flask-SQLAlchemy
 gunicorn
 python-decouple
+flask_swagger_ui

@@ -2,6 +2,8 @@ from flask import Flask,request,jsonify
 from config import config
 from models import db
 from models import Pregunta
+from flask_swagger_ui import get_swaggerui_blueprint
+
 
 def create_app(enviroment):
     app = Flask(__name__)
@@ -16,10 +18,13 @@ def create_app(enviroment):
 enviroment = config['development']
 app = create_app(enviroment)
 
-@app.route('/', methods=['GET'])
+@app.route('/swagger')
 def home():
-    data = "prueba"
-    return jsonify({'data': data})
+    SWAGGER_URL='/swagger'
+    API_URL='/static/swagger.json'
+    SWAGGER_BP=get_swaggerui_blueprint(SWAGGER_URL,API_URL,config={'app_name': 'creacion de preguntas'})
+    app.register_blueprint(SWAGGER_BP,url_prefix=SWAGGER_URL)
+    
  
 @app.route('/preguntas', methods=['GET'])
 def get_ques():
