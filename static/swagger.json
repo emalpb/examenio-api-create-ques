@@ -1,11 +1,11 @@
 {
     "openapi": "3.0.0",
     "info": {
-      "description": "sean",
+      "description": "preguntas",
       "version": "1.0.0",
       "title": "creacion de preguntas",
       "contact": {
-        "email": "seanwasere@gmail.com"
+        "email": "examenio@gmail.com"
       },
       "license": {
         "name": "MIT",
@@ -19,8 +19,8 @@
     ],
     "tags": [
       {
-        "name": "Book Request",
-        "description": "Example API for requesting and return book requests"
+        "name": "Preguntas Request",
+        "description": "CRUD Preguntas"
       }
     ],
     "paths": {

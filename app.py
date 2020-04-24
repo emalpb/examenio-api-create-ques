@@ -18,12 +18,11 @@ def create_app(enviroment):
 enviroment = config['development']
 app = create_app(enviroment)
 
-@app.route('/swagger')
-def home():
-    SWAGGER_URL='/swagger'
-    API_URL='/static/swagger.json'
-    SWAGGER_BP=get_swaggerui_blueprint(SWAGGER_URL,API_URL,config={'app_name': 'creacion de preguntas'})
-    app.register_blueprint(SWAGGER_BP,url_prefix=SWAGGER_URL)
+
+SWAGGER_URL='/swagger'
+API_URL='/static/swagger.json'
+SWAGGER_BP=get_swaggerui_blueprint(SWAGGER_URL,API_URL,config={'app_name': 'creacion de preguntas'})
+app.register_blueprint(SWAGGER_BP,url_prefix=SWAGGER_URL)
     
  
 @app.route('/preguntas', methods=['GET'])
