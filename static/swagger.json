@@ -24,33 +24,33 @@
       }
     ],
     "paths": {
-      "/request": {
+      "/preguntas": {
         "get": {
           "tags": [
-            "Book Request"
+            "Preguntas Request"
           ],
-          "summary": "Returns bookRequests",
+          "summary": "Returns PreguntasRequests",
           "responses": {
             "200": {
               "description": "OK",
               "schema": {
-                "$ref": "#/components/schemas/bookRequests"
+                "$ref": "#/components/schemas/PreguntasRequests"
               }
             }
           }
         },
         "post": {
           "tags": [
-            "Book Request"
+            "Preguntas Request"
           ],
-          "summary": "Create a new book request system",
+          "summary": "Create a new question request system",
           "requestBody": {
-            "description": "Book Request Post Object",
+            "description": "Preguntas Request Post Object",
             "required": true,
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/bookRequestPostBody"
+                  "$ref": "#/components/schemas/PreguntasRequestPostBody"
                 }
               }
             }
@@ -71,27 +71,27 @@
           }
         }
       },
-      "/request/{id}": {
+      "/preguntas/{id}": {
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "description": "ID of the cat that we want to match",
+            "description": "ID we want to match",
             "type": "string"
           }
         ],
         "get": {
           "tags": [
-            "Book Request"
+            "Preguntas Request"
           ],
-          "summary": "Get book request with given ID",
+          "summary": "Get Preguntas request with given ID",
           "parameters": [
             {
               "in": "path",
               "name": "id",
               "required": true,
-              "description": "Book Request id",
+              "description": "Preguntas Request id",
               "schema": {
                 "$ref": "#/components/schemas/id"
               }
@@ -101,40 +101,40 @@
             "200": {
               "description": "OK",
               "schema": {
-                "$ref": "#/components/schemas/bookRequest"
+                "$ref": "#/components/schemas/PreguntasRequest"
               }
             },
             "400": {
               "description": "Failed. Misunderstood Request."
             },
             "404": {
-              "description": "Failed. Book request not found."
+              "description": "Failed. Preguntas request not found."
             }
           }
         },
         "put": {
-          "summary": "edit a book request by ID",
+          "summary": "edit a Preguntas request by ID",
           "tags": [
-            "Book Request"
+            "Preguntas Request"
           ],
           "parameters": [
             {
               "in": "path",
               "name": "id",
               "required": true,
-              "description": "Book Request id",
+              "description": "Preguntas Request id",
               "schema": {
                 "$ref": "#/components/schemas/id"
               }
             }
           ],
           "requestBody": {
-            "description": "Book Request Object",
+            "description": "Preguntas Request Object",
             "required": true,
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/bookRequest"
+                  "$ref": "#/components/schemas/PreguntasRequest"
                 }
               }
             }
@@ -146,7 +146,7 @@
             "200": {
               "description": "OK",
               "schema": {
-                "$ref": "#/components/schemas/bookRequest"
+                "$ref": "#/components/schemas/PreguntasRequest"
               }
             },
             "400": {
@@ -155,16 +155,16 @@
           }
         },
         "delete": {
-          "summary": "Delete Book Request by ID",
+          "summary": "Delete Preguntas Request by ID",
           "tags": [
-            "Book Request"
+            "Preguntas Request"
           ],
           "parameters": [
             {
               "in": "path",
               "name": "id",
               "required": true,
-              "description": "Book Request Id",
+              "description": "Preguntas Request Id",
               "schema": {
                 "$ref": "#/components/schemas/id"
               }
@@ -181,7 +181,7 @@
               "description": "Failed. Misunderstood Request."
             },
             "404": {
-              "description": "Failed. Book Request not found."
+              "description": "Failed. Preguntas Request not found."
             }
           }
         }
@@ -192,47 +192,43 @@
         "id": {
           "properties": {
             "uuid": {
-              "type": "string"
+              "type": "integer"
             }
           }
         },
-        "bookRequestPostBody": {
+        "PreguntasRequestPostBody": {
           "type": "object",
           "properties": {
-            "title": {
+            "materia": {
               "type": "string",
               "format": "string"
             },
-            "email": {
+            "consigna": {
               "type": "string",
-              "format": "email"
+              "format": "string"
             }
           }
         },
-        "bookRequest": {
+        "PreguntasRequest": {
           "type": "object",
           "properties": {
-            "title": {
+            "materia": {
               "type": "string",
               "format": "string"
             },
-            "email": {
+            "consigna": {
               "type": "string",
-              "format": "email"
-            },
-            "timestamp": {
-              "type": "string",
-              "format": "number"
+              "format": "string"
             }
           }
         },
-        "bookRequests": {
+        "PreguntasRequests": {
           "type": "object",
           "properties": {
-            "bookRequest": {
+            "PreguntasRequest": {
               "type": "object",
               "additionalProperties": {
-                "$ref": "#/components/schemas/bookRequest"
+                "$ref": "#/components/schemas/PreguntasRequest"
               }
             }
           }
